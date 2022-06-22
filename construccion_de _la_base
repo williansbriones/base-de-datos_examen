@@ -126,3 +126,8 @@ CREATE TABLE tipo_vehiculo (
 ALTER TABLE tipo_vehiculo ADD CONSTRAINT tipo_vehiculo_PK PRIMARY KEY (id_tipo_vehiculo);
 ALTER TABLE vehiculo ADD CONSTRAINT tipo_vehiculo_FK FOREIGN KEY (tipo_vehiculo_id)
     REFERENCES tipo_vehiculo (id_tipo_vehiculo);
+---------------------------------------------------------------------------------------------TABLAS DE SOLICITUD
+CREATE TABLE tipo_de_estado (
+    id_tipo_de_estado           NUMBER NOT NULL,
+    nombre                      VARCHAR(255) NOT NULL
+    );
