@@ -34,6 +34,7 @@ CREATE TABLE afiliados(
     direccion           VARCHAR(255) NOT NULL,
     curriculum          BLOB NOT NULL,
     habilitado          CHAR(1) NOT NULL,
+    correo_electronico  VARCHAR(255) NOT NULL,
     comuna_id           NUMBER NOT NULL,
     nacionalidad_id     NUMBER NOT NULL
     );
@@ -93,7 +94,7 @@ CREATE TABLE vehiculo (
     color               VARCHAR(255) NOT NULL,
     patente             VARCHAR(6) NOT NULL,
     numero_chasis       VARCHAR(255) NOT NULL,
-    num_motor           NUMBER NOT NULL,
+    num_motor           VARCHAR(255) NOT NULL,
     modelo_id           NUMBER NOT NULL,
     marca_id            NUMBER NOT NULL,
     tipo_vehiculo_id    NUMBER NOT NULL
