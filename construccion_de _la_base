@@ -57,20 +57,35 @@ ALTER TABLE afiliado_x_discapacidad ADD CONSTRAINT afiliado_FK FOREIGN KEY (afil
 ALTER TABLE afiliado_x_discapacidad ADD CONSTRAINT discapacidad_FK FOREIGN KEY (discapacidades_id)
     REFERENCES discapacidades (id_discapacidades);
 -------------------------------------------------------------------tablas de pagos
-CREATE TABLE pagos (
-    id_pago         number not null,
-    nombre          varchar(255) not null
+CREATE TABLE mensualidades (
+    tipo_de_pago_id         NUMBER NOT NULL,
+    afiliado_id             NUMBER NOT NULL,
+    monto                   NUMBER NOT NULL,
+    fecha                   DATE  NOT NULL,
+    numero_de_cheque        NUMBER
     );
-ALTER TABLE pagos ADD CONSTRAINT pagos_PK primary key (id_pago);
+ALTER TABLE mensualidades ADD CONSTRAINT afiliado_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados (id_afiliado);
 
-CREATE TABLE pagos_x_afiliado (
-    pagos_id        NUMBER NOT NULL,
-    afiliado_id     NUMBER NOT NULL
+CREATE TABLE tipo_de_pago (
+    id_tipo_de_pago         NUMBER NOT NULL,
+    nombre                  VARCHAR(255) NOT NULL,
+    tipo_de_banco           NUMBER
     );
-ALTER TABLE pagos_x_afiliado ADD CONSTRAINT pagos_FK FOREIGN KEY (pagos_id)
-    REFERENCES pagos(id_pago);
-ALTER TABLE pagos_x_afiliado ADD CONSTRAINT afiliados_FK FOREIGN KEY (afiliado_id)
-    REFERENCES afiliados(id_afiliado);
+ALTER TABLE tipo_de_pago ADD CONSTRAINT tipo_de_pago_PK PRIMARY KEY (id_tipo_de_pago);
+ALTER TABLE mensualidades ADD CONSTRAINT tipo_de_pago_FK FOREIGN KEY (tipo_de_pago_id)
+    REFERENCES tipo_de_pago (id_tipo_de_pago);
+
+CREATE TABLE banco (
+    id_banco                NUMBER NOT NULL,
+    nombre                  VARCHAR(255) NOT NULL,
+    tipo_de_pago_id         NUMBER
+    );
+ALTER TABLE banco ADD CONSTRAINT banco_PK PRIMARY KEY (id_banco);
+ALTER TABLE banco ADD CONSTRAINT tipo_de_pago_FK FOREIGN KEY (tipo_de_pago_id)
+    REFERENCES tipo_de_pago(id_tipo_de_pago);
+ALTER TABLE tipo_de_pago ADD CONSTRAINT banco_FK FOREIGN KEY (tipo_de_banco_id)
+    REFERENCES banco (id_banco);
 -------------------------------------------------------------------tabla  de nacionalidades
 CREATE TABLE nacionalidades (
     id_nacionalidades       NUMBER NOT NULL,
@@ -131,3 +146,80 @@ CREATE TABLE tipo_de_estado (
     id_tipo_de_estado           NUMBER NOT NULL,
     nombre                      VARCHAR(255) NOT NULL
     );
+ALTER TABLE tipo_de_estado ADD CONSTRAINT tipo_de_estado PRIMARY KEY (id_tipo_de_estado);
+
+REATE TABLE solicitud (
+    id_solicitud            NUMBER NOT NULL,
+    fecha_solicitud         DATE NOT NULL,
+    afiliado_id             NUMBER NOT NULL
+    );
+ALTER TABLE solicitud ADD CONSTRAINT solicitud PRIMARY KEY (id_solicitud);
+ALTER TABLE solicitud ADD CONSTRAINT afiliado_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados(id_afiliado);
+
+CREATE TABLE estado_de_solicitud (
+    tipo_solicitud_id           NUMBER NOT NULL,
+    solicitud_id                NUMBER NOT NULL,
+    fecha                       DATE NOT NULL
+    );
+ALTER TABLE estado_de_solicitud ADD CONSTRAINT tipo_de_solicitud_FK FOREIGN KEY (tipo_solicitud_id)
+    REFERENCES tipo_de_estado (id_tipo_de_estado);
+ALTER TABLE estado_de_solicitud ADD CONSTRAINT solicitud_FK FOREIGN KEY (solicitud_id)
+    REFERENCES solicitud (id_solicitud);
+-------------------------------------------------------------TABLAS DE BENEFICIOS 
+CREATE TABLE beneficios_por_afiliados(
+    afiliado_id         NUMBER NOT NULL,
+    beneficio_id        NUMBER NOT NULL,
+    fecha               DATE NOT NULL,
+    cantidad_de_uso     NUMBER 
+    );
+ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT afiliado_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados (id_afiliado);
+
+CREATE TABLE beneficios(
+    id_beneficios               NUMBER NOT NULL,
+    nombre                      VARCHAR(255) NOT NULL,
+    beneficios_limitados        CHAR(1) NOT NULL,
+    descuento                   NUMBER NOT NULL
+    );
+ALTER TABLE beneficios ADD CONSTRAINT beneficios_PK PRIMARY KEY (id_beneficios);
+ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT beneficio_FK FOREIGN KEY (beneficio_id)
+    REFERENCES beneficios (id_beneficios);
+-------------------------------------------------------------TABLAS NUMERO
+CREATE TABLE numero_por_afiliado (
+    afiliado_id             NUMBER NOT NULL,
+    tipo_numero_id          NUMBER NOT NULL,
+    numero                  NUMBER NOT NULL
+    );
+    
+ALTER TABLE numero_por_afiliado ADD CONSTRAINT afiliado_FK FOREIGN KEY ()
+    REFERENCES afiliados(id_afiliado);
+
+CREATE TABLE tipo_de_numero (
+    id_tipo_de_numero       NUMBER NOT NULL,
+    nomber                  VARCHAR(255) NOT NULL
+    );
+ALTER TABLE tipo_de_numero ADD CONSTRAINT tipo_de_numero_PK PRIMARY KEY (id_tipo_de_numero);
+ALTER TABLE numero_por_afiliado ADD CONSTRAINT tipo_numero_FK FOREIGN KEY (tipo_numero_id)
+    REFERENCES tipo_de_numero (id_tipo_de_numero);
+------------------------------------------------------------TABLAS DE CARGAS
+
+CREATE TABLE afiliado_X_carga (
+    afiliado_id         NUMBER NOT NULL,
+    carga_id            NUMBER NOT NULL
+    );
+ALTER TABLE afiliado_X_carga ADD CONSTRAINT afiliado_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados (id_afiliado);
+
+CREATE TABLE cargas (
+    id_rut                 NUMBER NOT NULL,
+    dv                  VARCHAR(1) NOT NULL,
+    pri_nombre          VARCHAR(255) NOT NULL,
+    seg_nombre          VARCHAR(255),
+    ape_paterno         VARCHAR(255) NOT NULL,
+    ape_materno         VARCHAR(255),
+    tipo_parentesco     CHAR(1) NOT NULL
+    );
+ALTER TABLE cargas ADD CONSTRAINT rut_PK PRIMARY KEY (id_rut);
+ALTER TABLE afiliado_X_carga ADD CONSTRAINT carga_FK FOREIGN KEY (carga_id)
+    REFERENCES cargas(id_rut);
