@@ -192,7 +192,7 @@ CREATE TABLE numero_por_afiliado (
     numero                  NUMBER NOT NULL
     );
     
-ALTER TABLE numero_por_afiliado ADD CONSTRAINT afiliado_FK FOREIGN KEY ()
+ALTER TABLE numero_por_afiliado ADD CONSTRAINT afiliado_num_afi_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados(id_afiliado);
 
 CREATE TABLE tipo_de_numero (
