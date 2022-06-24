@@ -101,7 +101,7 @@ CREATE TABLE vehiculos_x_afiliados (
     prima               NUMBER NOT NULL,
     descuento           NUMBER NOT NULL
     );
-ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT afiliado_FK FOREIGN KEY (afiliado_id)
+ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT afiliado_vehiculo_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados(id_afiliado);
 
 CREATE TABLE vehiculo (
