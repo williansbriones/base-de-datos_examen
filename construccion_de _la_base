@@ -173,7 +173,7 @@ CREATE TABLE beneficios_por_afiliados(
     fecha               DATE NOT NULL,
     cantidad_de_uso     NUMBER 
     );
-ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT afiliado_FK FOREIGN KEY (afiliado_id)
+ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT afiliado_beneficios_afi_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados (id_afiliado);
 
 CREATE TABLE beneficios(
