@@ -208,11 +208,11 @@ CREATE TABLE afiliado_X_carga (
     afiliado_id         NUMBER NOT NULL,
     carga_id            NUMBER NOT NULL
     );
-ALTER TABLE afiliado_X_carga ADD CONSTRAINT afiliado_FK FOREIGN KEY (afiliado_id)
+ALTER TABLE afiliado_X_carga ADD CONSTRAINT afiliado_afi_carga_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados (id_afiliado);
 
 CREATE TABLE cargas (
-    id_rut                 NUMBER NOT NULL,
+    id_rut              NUMBER NOT NULL,
     dv                  VARCHAR(1) NOT NULL,
     pri_nombre          VARCHAR(255) NOT NULL,
     seg_nombre          VARCHAR(255),
