@@ -40,7 +40,7 @@ CREATE TABLE afiliados(
     );
 ALTER TABLE afiliados ADD CONSTRAINT afiliados_PK PRIMARY KEY (id_afiliado);
 ALTER TABLE afiliados ADD CONSTRAINT comuna_FK FOREIGN KEY (comuna_id)
-    REFERENCES comunas (id_comuna);s 
+    REFERENCES comunas (id_comuna); 
 ----------------------------------------------------------------tablas de discapacidad
 CREATE TABLE discapacidades (
     id_discapacidades   NUMBER NOT NULL,
