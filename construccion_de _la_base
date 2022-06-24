@@ -148,7 +148,7 @@ CREATE TABLE tipo_de_estado (
     );
 ALTER TABLE tipo_de_estado ADD CONSTRAINT tipo_de_estado PRIMARY KEY (id_tipo_de_estado);
 
-REATE TABLE solicitud (
+CREATE TABLE solicitud (
     id_solicitud            NUMBER NOT NULL,
     fecha_solicitud         DATE NOT NULL,
     afiliado_id             NUMBER NOT NULL
