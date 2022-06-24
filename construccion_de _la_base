@@ -154,7 +154,7 @@ CREATE TABLE solicitud (
     afiliado_id             NUMBER NOT NULL
     );
 ALTER TABLE solicitud ADD CONSTRAINT solicitud PRIMARY KEY (id_solicitud);
-ALTER TABLE solicitud ADD CONSTRAINT afiliado_FK FOREIGN KEY (afiliado_id)
+ALTER TABLE solicitud ADD CONSTRAINT afiliado_solicitud_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados(id_afiliado);
 
 CREATE TABLE estado_de_solicitud (
