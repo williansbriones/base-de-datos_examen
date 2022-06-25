@@ -65,9 +65,7 @@ CREATE TABLE mensualidades (
     tipo_de_pago_id         NUMBER NOT NULL,
     afiliado_id             NUMBER NOT NULL,
     monto                   NUMBER NOT NULL,
-    fecha                   DATE  NOT NULL,
-    numero_de_cheque        NUMBER
-    );
+    fecha             
 ALTER TABLE mensualidades ADD CONSTRAINT afiliado_mensualidades_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados (id_afiliado);
 
@@ -89,7 +87,9 @@ ALTER TABLE banco ADD CONSTRAINT banco_PK PRIMARY KEY (id_banco);
 ALTER TABLE banco ADD CONSTRAINT tipo_de_pago_banco_FK FOREIGN KEY (tipo_de_pago_id)
     REFERENCES tipo_de_pago(id_tipo_de_pago);
 ALTER TABLE tipo_de_pago ADD CONSTRAINT banco_FK FOREIGN KEY (tipo_de_banco_id)
-    REFERENCES banco (id_banco);
+    REFERENCES banco (id_banco);      DATE  NOT NULL,
+    numero_de_cheque        NUMBER
+    );
 -------------------------------------------------------------------tabla  de nacionalidades
 CREATE TABLE nacionalidades (
     id_nacionalidades       NUMBER NOT NULL,
@@ -115,7 +115,6 @@ CREATE TABLE vehiculo (
     numero_chasis       VARCHAR(255) NOT NULL,
     num_motor           VARCHAR(255) NOT NULL,
     modelo_id           NUMBER NOT NULL,
-    marca_id            NUMBER NOT NULL,
     tipo_vehiculo_id    NUMBER NOT NULL
     );
 ALTER TABLE vehiculo ADD CONSTRAINT vehiculo_PK PRIMARY KEY (id_vehiculo);
@@ -124,7 +123,8 @@ ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT vehiculo_FK FOREIGN KEY (vehicu
 
 CREATE TABLE modelo (
     id_modelo           NUMBER NOT NULL,
-    nombre              VARCHAR(255) NOT NULL
+    nombre              VARCHAR(255) NOT NULL,
+    marca_id            NUMBER NOT NULL
     );
 ALTER TABLE modelo ADD CONSTRAINT modelo_PK PRIMARY KEY (id_modelo);
 ALTER TABLE vehiculo ADD CONSTRAINT modelo_FK FOREIGN KEY (modelo_id)
@@ -135,7 +135,7 @@ CREATE TABLE marca (
     nombre          VARCHAR(255) NOT NULL
     );
 ALTER TABLE marca ADD CONSTRAINT marca_PK PRIMARY KEY (id_marca);
-ALTER TABLE vehiculo ADD CONSTRAINT marca_FK FOREIGN KEY (marca_id)
+ALTER TABLE modelo ADD CONSTRAINT marca_FK FOREIGN KEY (marca_id)
     REFERENCES marca (id_marca);
 
 CREATE TABLE tipo_vehiculo (
