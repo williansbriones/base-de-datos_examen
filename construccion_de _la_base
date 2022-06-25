@@ -1,3 +1,4 @@
+ALTER SESSION SET NLS_DATE_FORMAT= 'DD/MM/YY';
 ---------------------------------------------------------tablas de comunas, regione, provincias
 CREATE TABLE comunas(
 id_comuna       NUMBER NOT NULL,
