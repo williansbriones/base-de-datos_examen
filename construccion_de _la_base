@@ -65,14 +65,16 @@ CREATE TABLE mensualidades (
     tipo_de_pago_id         NUMBER NOT NULL,
     afiliado_id             NUMBER NOT NULL,
     monto                   NUMBER NOT NULL,
-    fecha             
+    fecha                   DATE  NOT NULL,
+    numero_de_cheque        NUMBER,
+    banco_id                NUMBER NOT NULL
+    );
 ALTER TABLE mensualidades ADD CONSTRAINT afiliado_mensualidades_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados (id_afiliado);
 
 CREATE TABLE tipo_de_pago (
     id_tipo_de_pago         NUMBER NOT NULL,
-    nombre                  VARCHAR(255) NOT NULL,
-    tipo_de_banco_id           NUMBER
+    nombre                  VARCHAR(255) NOT NULL
     );
 ALTER TABLE tipo_de_pago ADD CONSTRAINT tipo_de_pago_PK PRIMARY KEY (id_tipo_de_pago);
 ALTER TABLE mensualidades ADD CONSTRAINT tipo_de_pago_FK FOREIGN KEY (tipo_de_pago_id)
@@ -80,16 +82,11 @@ ALTER TABLE mensualidades ADD CONSTRAINT tipo_de_pago_FK FOREIGN KEY (tipo_de_pa
 
 CREATE TABLE banco (
     id_banco                NUMBER NOT NULL,
-    nombre                  VARCHAR(255) NOT NULL,
-    tipo_de_pago_id         NUMBER
+    nombre                  VARCHAR(255) NOT NULL
     );
 ALTER TABLE banco ADD CONSTRAINT banco_PK PRIMARY KEY (id_banco);
-ALTER TABLE banco ADD CONSTRAINT tipo_de_pago_banco_FK FOREIGN KEY (tipo_de_pago_id)
-    REFERENCES tipo_de_pago(id_tipo_de_pago);
-ALTER TABLE tipo_de_pago ADD CONSTRAINT banco_FK FOREIGN KEY (tipo_de_banco_id)
-    REFERENCES banco (id_banco);      DATE  NOT NULL,
-    numero_de_cheque        NUMBER
-    );
+ALTER TABLE mensualidades ADD CONSTRAINT banco_FK FOREIGN KEY (banco_id)
+    REFERENCES banco (id_banco);
 -------------------------------------------------------------------tabla  de nacionalidades
 CREATE TABLE nacionalidades (
     id_nacionalidades       NUMBER NOT NULL,
