@@ -4,7 +4,7 @@ INSERT INTO nacionalidades VALUES (3,'Peru');
 INSERT INTO nacionalidades VALUES (4,'Bolivia');
 INSERT INTO nacionalidades VALUES (5,'España');
 INSERT INTO nacionalidades VALUES (6,'Uruguay');
-INSERT INTO nacionalidades VALUES (7,'Uruguay');
+INSERT INTO nacionalidades VALUES (7,'Paraguay');
 INSERT INTO nacionalidades VALUES (8,'Antártida');
 INSERT INTO nacionalidades VALUES (9,'Antigua y Barbuda');
 INSERT INTO nacionalidades VALUES (10,'Antillas Holandesas');
