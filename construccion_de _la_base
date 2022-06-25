@@ -26,6 +26,9 @@ ALTER TABLE provincias ADD CONSTRAINT region_FK FOREIGN KEY (region_id)
 -------------------------------------------------------------tabla de afiliados
 CREATE TABLE afiliados(
     id_afiliado         NUMBER NOT NULL,
+    rut                 NUMBER,
+    DV                  CHAR(1),
+    num_pasapote        NUMBER,
     pri_nombre          VARCHAR(255) NOT NULL,
     seg_nombre          VARCHAR(255),
     ape_paterno         VARCHAR(255) NOT NULL,
