@@ -189,23 +189,23 @@ CREATE TABLE beneficios(
 ALTER TABLE beneficios ADD CONSTRAINT beneficios_PK PRIMARY KEY (id_beneficios);
 ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT beneficio_FK FOREIGN KEY (beneficio_id)
     REFERENCES beneficios (id_beneficios);
--------------------------------------------------------------TABLAS NUMERO
-CREATE TABLE numero_por_afiliado (
+-------------------------------------------------------------TABLAS TELEFONO
+CREATE TABLE telefono_por_afiliado (
     afiliado_id             NUMBER NOT NULL,
-    tipo_numero_id          NUMBER NOT NULL,
+    tipo_telefono_id        NUMBER NOT NULL,
     numero                  NUMBER NOT NULL
     );
     
-ALTER TABLE numero_por_afiliado ADD CONSTRAINT afiliado_num_afi_FK FOREIGN KEY (afiliado_id)
+ALTER TABLE telefono_por_afiliado ADD CONSTRAINT afiliado_telefono_afi_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados(id_afiliado);
 
-CREATE TABLE tipo_de_numero (
-    id_tipo_de_numero       NUMBER NOT NULL,
+CREATE TABLE tipo_de_telefono (
+    id_tipo_de_telefono       NUMBER NOT NULL,
     nomber                  VARCHAR(255) NOT NULL
     );
-ALTER TABLE tipo_de_numero ADD CONSTRAINT tipo_de_numero_PK PRIMARY KEY (id_tipo_de_numero);
-ALTER TABLE numero_por_afiliado ADD CONSTRAINT tipo_numero_FK FOREIGN KEY (tipo_numero_id)
-    REFERENCES tipo_de_numero (id_tipo_de_numero);
+ALTER TABLE tipo_de_telefono ADD CONSTRAINT tipo_de_telefono_PK PRIMARY KEY (id_tipo_de_telefono);
+ALTER TABLE telefono_por_afiliado ADD CONSTRAINT tipo_telefono_FK FOREIGN KEY (tipo_telefono_id)
+    REFERENCES tipo_de_telefono (id_tipo_de_telefono);
 ------------------------------------------------------------TABLAS DE CARGAS
 
 CREATE TABLE afiliado_X_carga (
@@ -222,7 +222,8 @@ CREATE TABLE cargas (
     seg_nombre          VARCHAR(255),
     ape_paterno         VARCHAR(255) NOT NULL,
     ape_materno         VARCHAR(255),
-    tipo_parentesco     CHAR(1) NOT NULL
+    tipo_parentesco     CHAR(1) NOT NULL,
+    tipo_pareja         VARCHAR(255)
     );
 ALTER TABLE cargas ADD CONSTRAINT rut_PK PRIMARY KEY (id_rut);
 ALTER TABLE afiliado_X_carga ADD CONSTRAINT carga_FK FOREIGN KEY (carga_id)
