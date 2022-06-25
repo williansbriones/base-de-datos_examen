@@ -56,6 +56,20 @@ INSERT INTO provincias VALUES (9,'Concepcion',9);
 INSERT INTO provincias VALUES (10,'Valdivia',11);
 INSERT INTO provincias VALUES (11,'Osorno',12);
 INSERT INTO provincias VALUES (12,'Aysen',13);
+------------------------------------------------------insert comunas
+INSERT INTO comunas VALUES (1,'Puente alto',6);
+INSERT INTO comunas VALUES (2,'Quinta normal',6);
+INSERT INTO comunas VALUES (3,'La florida',6);
+INSERT INTO comunas VALUES(4,'Tejas verdes',5);
+INSERT INTO comunas VALUES (5,'Caldera',3);
+-----------------------------------------------------select piola
+SELECT
+co.id_comuna AS "numero de comuna",
+co.nombre AS "comunas",
+pro.nombre AS "provincia"
+FROM comunas co 
+JOIN provincias pro ON (pro.id_provincia=co.provincia_id)
+ORDER BY co.nombre
 ------------------------------------------------select piola
 SELECT 
     pr.id_provincia AS "numero",
