@@ -34,4 +34,5 @@ co.nombre                   AS "Comuna",
 na.nombre                   AS "pais"
 FROM afiliados afi
 JOIN comunas co ON (co.id_comuna=afi.comuna_id)
-JOIN nacionalidades na ON (na.id_nacionalidades=afi.nacionalidad_id);
+JOIN nacionalidades na ON (na.id_nacionalidades=afi.nacionalidad_id)
+ORDER BY afi.id_afiliado;
