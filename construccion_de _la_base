@@ -237,7 +237,7 @@ ALTER TABLE afiliado_X_carga ADD CONSTRAINT carga_FK FOREIGN KEY (carga_id)
 --------------------------------------------------------------------tablas de tipo de genero 
 CREATE TABLE tipos_de_genero (
     id_genero           NUMBER NOT NULL,
-    nombre              VARCHAR(255) NOT NULL,
+    nombre              VARCHAR(255) NOT NULL
 );
 ALTER TABLE tipos_de_genero ADD CONSTRAINT id_genero_PK PRIMARY KEY (id_genero);
 ALTER TABLE afiliados ADD CONSTRAINT afiliado_tipos_de_genero_FK FOREIGN KEY (genero_id)
