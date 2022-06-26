@@ -71,5 +71,5 @@ INSERT INTO afiliados VALUES (3,23439815,'6','','Luis','','Samper','','09/03/05'
 );
 INSERT INTO afiliados VALUES (4,22150875,'7','','Maria','Gloria','Rodriguez','','18/07/03',500000,'Olivo 1980','3151321351213','0','Glorias@gmail.com',4,1
 );
-INSERT INTO afiliados VALUES (5,'','',D513CVZ152C5,'José ','Luis','Quispe','Sánchez','28/08/80',200000,'aliso 4348','3151321351213','0','Faraon@gmail.com',5,3
+INSERT INTO afiliados VALUES (5,'','','D513CVZ152C5','José ','Luis','Quispe','Sánchez','28/08/80',200000,'aliso 4348','3151321351213','0','Faraon@gmail.com',5,3
 );
