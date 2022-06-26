@@ -62,6 +62,10 @@ INSERT INTO comunas VALUES (2,'Quinta normal',6);
 INSERT INTO comunas VALUES (3,'La florida',6);
 INSERT INTO comunas VALUES(4,'Tejas verdes',5);
 INSERT INTO comunas VALUES (5,'Caldera',3);
+-----------------------------------------------------insert tipo de genero
+INSERT INTO tipos_de_genero VALUES (1,'Maculino');
+INSERT INTO tipos_de_genero VALUES (2,'Femenino');
+INSERT INTO tipos_de_genero VALUES (3,'Otro');
 -----------------------------------------------------insert afiliados
 INSERT INTO afiliados VALUES (1,20811954,'0','','Willians','','briones','','19/07/01',200000,'Pino 2757','12365468435138151326813535','0','wbriones2013@gmail.com',1,1
 );
