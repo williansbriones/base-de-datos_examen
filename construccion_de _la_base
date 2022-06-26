@@ -187,7 +187,8 @@ CREATE TABLE beneficios(
     id_beneficios               NUMBER NOT NULL,
     nombre                      VARCHAR(255) NOT NULL,
     beneficios_limitados        CHAR(1) NOT NULL,
-    descuento                   NUMBER NOT NULL
+    descuento                   NUMBER NOT NULL,
+    cantidad_de_uso             NUMBER NOT NULL
     );
 ALTER TABLE beneficios ADD CONSTRAINT beneficios_PK PRIMARY KEY (id_beneficios);
 ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT beneficio_FK FOREIGN KEY (beneficio_id)
