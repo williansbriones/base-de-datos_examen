@@ -40,7 +40,8 @@ CREATE TABLE afiliados(
     habilitado          CHAR(1) NOT NULL,
     correo_electronico  VARCHAR(255) NOT NULL,
     comuna_id           NUMBER NOT NULL,
-    nacionalidad_id     NUMBER NOT NULL
+    nacionalidad_id     NUMBER NOT NULL,
+    genero_id           NUMBER NOT NULL
     );
 ALTER TABLE afiliados ADD CONSTRAINT afiliados_PK PRIMARY KEY (id_afiliado);
 ALTER TABLE afiliados ADD CONSTRAINT afiliado_comuna_FK FOREIGN KEY (comuna_id)
@@ -233,3 +234,11 @@ CREATE TABLE cargas (
 ALTER TABLE cargas ADD CONSTRAINT rut_PK PRIMARY KEY (id_rut);
 ALTER TABLE afiliado_X_carga ADD CONSTRAINT carga_FK FOREIGN KEY (carga_id)
     REFERENCES cargas(id_rut);
+--------------------------------------------------------------------tablas de tipo de genero 
+CREATE TABLE tipos_de_genero (
+    id_genero           NUMBER NOT NULL,
+    nombre              VARCHAR(255) NOT NULL,
+);
+ALTER TABLE tipos_de_genero ADD CONSTRAINT id_genero_PK PRIMARY KEY (id_genero);
+ALTER TABLE afiliados ADD CONSTRAINT afiliado_tipos_de_genero_FK FOREIGN KEY (genero_id)
+    REFERENCES tipos_de_genero (id_genero);
