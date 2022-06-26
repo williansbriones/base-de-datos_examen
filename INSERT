@@ -77,3 +77,13 @@ INSERT INTO afiliados VALUES (4,22150875,'7','','Maria','Gloria','Rodriguez','',
 );
 INSERT INTO afiliados VALUES (5,'','','D513CVZ152C5','José ','Luis','Quispe','Sánchez','28/08/80',200000,'aliso 4348','3151321351213','0','Faraon@gmail.com',5,3
 );
+----------------------------------------------------insert discapacidades
+INSERT INTO discapacidades VALUES (1,'SENSORIALES Y DE LA COMUNICACIÓN');
+INSERT INTO discapacidades VALUES (2,'MOTRICES');
+INSERT INTO discapacidades VALUES (3,'MENTALES');
+------------------------------------------------------insert discapacidades_por_afiliados
+INSERT INTO afiliado_x_discapacidad VALUES (5,2);
+INSERT INTO afiliado_x_discapacidad VALUES (5,3);
+INSERT INTO afiliado_x_discapacidad VALUES (4,1);
+INSERT INTO afiliado_x_discapacidad VALUES (3,3);
+INSERT INTO afiliado_x_discapacidad VALUES (3,2);
