@@ -85,9 +85,21 @@ FROM provincias pr
 SELECT
 afi.id_afiliado         AS "Numero de afiliado",
 afi.rut                 AS "RUT",
+DV                      AS "Digito verificador",
+num_pasapote            AS "Numero de Pasaporte",
+pri_nombre              AS "Primer nombre",
+seg_nombre              AS "Segundo nombre",
+ape_paterno             AS "Primer apellido",
+ape_materno             AS "Segundo Apellido",
 afi.fecha_nacimiento    AS "Feha nacimiento",
+fecha_nacimiento        AS "fecha de nacimiento",
+pretencion_sueldo       AS "Pretencion de sueldo",
+direccion               AS "Direccion",
+curriculum              AS "Curriculum",
+habilitado              AS "Estado de la cuenta",
+correo_electronico      AS "Correo electronico",
 co.nombre               AS "Comuna",
 na.nombre               AS "pais"
 FROM afiliados afi
 JOIN comunas co ON (co.id_comuna=afi.comuna_id)
-JOIN nacionalidades na ON (na.id_nacionalidades=afi.nacionalidad_id)
+JOIN nacionalidades na ON (na.id_nacionalidades=afi.nacionalidad_id);
