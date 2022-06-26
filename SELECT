@@ -1,0 +1,37 @@
+-----------------------------------------------------select piola
+SELECT
+co.id_comuna AS "numero de comuna",
+co.nombre AS "comunas",
+pro.nombre AS "provincia"
+FROM comunas co 
+JOIN provincias pro ON (pro.id_provincia=co.provincia_id)
+ORDER BY co.nombre;
+------------------------------------------------select piola
+SELECT 
+    pr.id_provincia AS "numero",
+    pr.nombre       AS "provincia",
+    re.nombre       AS "Region"
+FROM provincias pr
+    JOIN regiones re ON (re.id_region=pr.region_id)
+    ORDER BY pr.id_provincia DESC;
+    --------------------------------------------select piola
+SELECT
+afi.id_afiliado             AS "Numero de afiliado",
+afi.rut                     AS "RUT",
+afi.DV                      AS "Digito verificador",
+afi.num_pasapote            AS "Numero de Pasaporte",
+afi.pri_nombre              AS "Primer nombre",
+afi.seg_nombre              AS "Segundo nombre",
+afi.ape_paterno             AS "Primer apellido",
+afi.ape_materno             AS "Segundo Apellido",
+afi.fecha_nacimiento        AS "Feha nacimiento",
+afi.pretencion_sueldo       AS "Pretencion de sueldo",
+afi.direccion               AS "Direccion",
+afi.curriculum              AS "Curriculum",
+afi.habilitado              AS "Estado de la cuenta",
+afi.correo_electronico      AS "Correo electronico",
+co.nombre                   AS "Comuna",
+na.nombre                   AS "pais"
+FROM afiliados afi
+JOIN comunas co ON (co.id_comuna=afi.comuna_id)
+JOIN nacionalidades na ON (na.id_nacionalidades=afi.nacionalidad_id);
