@@ -248,5 +248,5 @@ CREATE TABLE estado_de_usuarios (
     afiliado_id_afiliado                        NUMBER NOT NULL
 );
 ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_PK PRIMARY KEY (Fecha,tipo_de_estado_del_usuario_Id_estado);
-ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_afiliado_PK FOREIGN key (afiliado_id_afiliado);
+ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_afiliado_PK FOREIGN key (afiliado_id_afiliado)
     REFERENCES afiliados (id_afiliado);
