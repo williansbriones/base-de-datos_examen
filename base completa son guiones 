@@ -1,0 +1,423 @@
+ALTER SESSION SET NLS_DATE_FORMAT= 'DD/MM/YY';
+
+CREATE TABLE comunas(
+id_comuna       NUMBER NOT NULL,
+nombre          VARCHAR(255) NOT NULL,
+provincia_id    NUMBER NOT NULL
+);
+ALTER TABLE comunas ADD CONSTRAINT comuna_PK PRIMARY KEY (id_comuna);
+
+CREATE TABLE provincias(
+id_provincia    NUMBER NOT NULL,
+nombre          VARCHAR(255) NOT NULL,
+region_id       NUMBER NOT NULL
+);
+ALTER TABLE provincias ADD CONSTRAINT provincias_PK PRIMARY KEY (id_provincia);
+ALTER TABLE comunas ADD CONSTRAINT comuna_provincias_FK FOREIGN KEY (provincia_id)
+    REFERENCES provincias (id_provincia);
+
+CREATE TABLE regiones(
+id_region   NUMBER NOT NULL,
+nombre      VARCHAR(255) NOT NULL
+);
+ALTER TABLE regiones ADD CONSTRAINT region_PK PRIMARY KEY (id_region);	
+ALTER TABLE provincias ADD CONSTRAINT provincia_region_FK FOREIGN KEY (region_id)
+    REFERENCES regiones (id_region);
+
+CREATE TABLE afiliados(
+    id_afiliado         NUMBER NOT NULL,
+    rut                 NUMBER,
+    DV                  CHAR(1),
+    num_pasapote        VARCHAR(255),
+    pri_nombre          VARCHAR(255) NOT NULL,
+    seg_nombre          VARCHAR(255),
+    ape_paterno         VARCHAR(255) NOT NULL,
+    ape_materno         VARCHAR(255),
+    fecha_nacimiento    DATE NOT NULL,
+    pretencion_sueldo   NUMBER NOT NULL,
+    direccion           VARCHAR(255) NOT NULL,
+    curriculum          BLOB NOT NULL,
+    correo_electronico  VARCHAR(255) NOT NULL,
+    comuna_id           NUMBER NOT NULL,
+    nacionalidad_id     NUMBER NOT NULL,
+    genero_id           NUMBER NOT NULL
+    );
+ALTER TABLE afiliados ADD CONSTRAINT afiliados_PK PRIMARY KEY (id_afiliado);
+ALTER TABLE afiliados ADD CONSTRAINT afiliado_comuna_FK FOREIGN KEY (comuna_id)
+    REFERENCES comunas (id_comuna); 
+
+CREATE TABLE discapacidades (
+    id_discapacidades   NUMBER NOT NULL,
+    nombre              VARCHAR(255) NOT NULL
+    );
+ALTER TABLE discapacidades ADD CONSTRAINT discapacidad_PK PRIMARY KEY (id_discapacidades);
+
+CREATE TABLE afiliado_x_discapacidad (
+    afiliado_id             number not null,
+    discapacidades_id       number not null
+    );
+ALTER TABLE afiliado_x_discapacidad ADD CONSTRAINT afiliado_x_discapacidad_PK PRIMARY KEY (afiliado_id,discapacidades_id);
+ALTER TABLE afiliado_x_discapacidad ADD CONSTRAINT afiliado_x_discapacidad_afiliado_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados (id_afiliado);
+ALTER TABLE afiliado_x_discapacidad ADD CONSTRAINT afiliado_x_discapacidad_discapacidad_FK FOREIGN KEY (discapacidades_id)
+    REFERENCES discapacidades (id_discapacidades);
+
+CREATE TABLE mensualidades (
+    id_mensualidad          NUMBER NOT NULL,
+    monto                   NUMBER NOT NULL,
+    fecha                   DATE  NOT NULL,
+    numero_de_cheque        NUMBER,
+    tipo_de_pago_id         NUMBER NOT NULL,
+    afiliado_id             NUMBER NOT NULL,
+    banco_id                NUMBER NOT NULL
+    );
+ALTER TABLE mensualidades ADD CONSTRAINT mensualidades_PK PRIMARY KEY (id_mensualidad);
+ALTER TABLE mensualidades ADD CONSTRAINT afiliado_mensualidades_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados (id_afiliado);
+
+CREATE TABLE tipo_de_pago (
+    id_tipo_de_pago         NUMBER NOT NULL,
+    nombre                  VARCHAR(255) NOT NULL
+    );
+ALTER TABLE tipo_de_pago ADD CONSTRAINT tipo_de_pago_PK PRIMARY KEY (id_tipo_de_pago);
+ALTER TABLE mensualidades ADD CONSTRAINT tipo_de_pago_FK FOREIGN KEY (tipo_de_pago_id)
+    REFERENCES tipo_de_pago (id_tipo_de_pago);
+
+CREATE TABLE banco (
+    id_banco                NUMBER NOT NULL,
+    nombre                  VARCHAR(255) NOT NULL
+    );
+ALTER TABLE banco ADD CONSTRAINT banco_PK PRIMARY KEY (id_banco);
+ALTER TABLE mensualidades ADD CONSTRAINT banco_FK FOREIGN KEY (banco_id)
+    REFERENCES banco (id_banco);
+
+CREATE TABLE nacionalidades (
+    id_nacionalidades       NUMBER NOT NULL,
+    nombre                  VARCHAR(255) NOT NULL
+    );
+ALTER TABLE nacionalidades ADD CONSTRAINT nacionalidad_PK PRIMARY KEY (id_nacionalidades);
+ALTER TABLE afiliados ADD CONSTRAINT afiliado_nacionalidad_FK FOREIGN KEY (nacionalidad_id)
+    REFERENCES nacionalidades (id_nacionalidades);
+
+CREATE TABLE vehiculos_x_afiliados (
+    vigente_hasta       DATE NOT NULL,
+    vehiculo_id         NUMBER NOT NULL,
+    prima               NUMBER NOT NULL,
+    descuento           NUMBER NOT NULL,
+    afiliado_id         NUMBER NOT NULL
+    );
+ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT vehiculos_x_afiliados_PK PRIMARY KEY (vigente_hasta,vehiculo_id);
+ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT afiliado_vehiculo_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados(id_afiliado);
+
+CREATE TABLE vehiculo (
+    id_vehiculo         NUMBER NOT NULL,
+    color               VARCHAR(255) NOT NULL,
+    patente             VARCHAR(6) NOT NULL,
+    numero_chasis       VARCHAR(255) NOT NULL,
+    num_motor           VARCHAR(255) NOT NULL,
+    modelo_id           NUMBER NOT NULL,
+    tipo_vehiculo_id    NUMBER NOT NULL
+    );
+ALTER TABLE vehiculo ADD CONSTRAINT vehiculo_PK PRIMARY KEY (id_vehiculo);
+ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT vehiculos_x_afiliados_vehiculo_FK FOREIGN KEY (vehiculo_id)
+    REFERENCES vehiculo (id_vehiculo);
+
+CREATE TABLE modelo (
+    id_modelo           NUMBER NOT NULL,
+    nombre              VARCHAR(255) NOT NULL,
+    marca_id            NUMBER NOT NULL
+    );
+ALTER TABLE modelo ADD CONSTRAINT modelo_PK PRIMARY KEY (id_modelo);
+ALTER TABLE vehiculo ADD CONSTRAINT vehiculo_modelo_FK FOREIGN KEY (modelo_id)
+    REFERENCES modelo (id_modelo);
+
+CREATE TABLE marca (
+    id_marca        NUMBER NOT NULL,
+    nombre          VARCHAR(255) NOT NULL
+    );
+ALTER TABLE marca ADD CONSTRAINT marca_PK PRIMARY KEY (id_marca);
+ALTER TABLE modelo ADD CONSTRAINT modelo_marca_FK FOREIGN KEY (marca_id)
+    REFERENCES marca (id_marca);
+
+CREATE TABLE tipo_vehiculo (
+    id_tipo_vehiculo        NUMBER NOT NULL,
+    nombre                  VARCHAR(255) NOT NULL
+    );
+ALTER TABLE tipo_vehiculo ADD CONSTRAINT tipo_vehiculo_PK PRIMARY KEY (id_tipo_vehiculo);
+ALTER TABLE vehiculo ADD CONSTRAINT vehiculo_tipo_vehiculo_FK FOREIGN KEY (tipo_vehiculo_id)
+    REFERENCES tipo_vehiculo (id_tipo_vehiculo);
+
+CREATE TABLE tipo_de_estado (
+    id_tipo_de_estado           NUMBER NOT NULL,
+    nombre                      VARCHAR(255) NOT NULL
+    );
+ALTER TABLE tipo_de_estado ADD CONSTRAINT tipo_de_estado PRIMARY KEY (id_tipo_de_estado);
+
+CREATE TABLE solicitud (
+    id_solicitud            NUMBER NOT NULL,
+    fecha_solicitud         DATE NOT NULL,
+    afiliado_id             NUMBER NOT NULL
+    );
+ALTER TABLE solicitud ADD CONSTRAINT solicitud PRIMARY KEY (id_solicitud);
+ALTER TABLE solicitud ADD CONSTRAINT solicitud_afiliado_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados(id_afiliado);
+
+CREATE TABLE estado_de_solicitud (
+    tipo_solicitud_id           NUMBER NOT NULL,
+    solicitud_id                NUMBER NOT NULL,
+    fecha                       DATE NOT NULL
+    );
+ALTER TABLE estado_de_solicitud ADD CONSTRAINT estado_de_solicitud_PK PRIMARY KEY (tipo_solicitud_id,solicitud_id);
+ALTER TABLE estado_de_solicitud ADD CONSTRAINT tipo_de_solicitud_FK FOREIGN KEY (tipo_solicitud_id)
+    REFERENCES tipo_de_estado (id_tipo_de_estado);
+ALTER TABLE estado_de_solicitud ADD CONSTRAINT solicitud_FK FOREIGN KEY (solicitud_id)
+    REFERENCES solicitud (id_solicitud);
+
+CREATE TABLE beneficios_por_afiliados(
+    afiliado_id         NUMBER NOT NULL,
+    beneficio_id        NUMBER NOT NULL,
+    fecha               DATE NOT NULL 
+    );
+ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT beneficios_por_afiliados_PK PRIMARY KEY (afiliado_id,beneficio_id);
+ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT afiliado_beneficios_afi_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados (id_afiliado);
+
+CREATE TABLE beneficios(
+    id_beneficios               NUMBER NOT NULL,
+    nombre                      VARCHAR(255) NOT NULL,
+    beneficios_limitados        CHAR(1) NOT NULL,
+    descuento                   NUMBER NOT NULL,
+    cantidad_de_uso             NUMBER
+    );
+ALTER TABLE beneficios ADD CONSTRAINT beneficios_PK PRIMARY KEY (id_beneficios);
+ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT beneficio_FK FOREIGN KEY (beneficio_id)
+    REFERENCES beneficios (id_beneficios);
+
+CREATE TABLE telefono_por_afiliado (
+    numero                  NUMBER NOT NULL,
+    afiliado_id             NUMBER NOT NULL,
+    tipo_telefono_id        NUMBER NOT NULL
+    );
+ALTER TABLE telefono_por_afiliado ADD CONSTRAINT telefono_por_afiliado_PK PRIMARY KEY (numero);
+ALTER TABLE telefono_por_afiliado ADD CONSTRAINT afiliado_telefono_afi_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados(id_afiliado);
+
+CREATE TABLE tipo_de_telefono (
+    id_tipo_de_telefono       NUMBER NOT NULL,
+    nomber                  VARCHAR(255) NOT NULL
+    );
+ALTER TABLE tipo_de_telefono ADD CONSTRAINT tipo_de_telefono_PK PRIMARY KEY (id_tipo_de_telefono);
+ALTER TABLE telefono_por_afiliado ADD CONSTRAINT tipo_telefono_FK FOREIGN KEY (tipo_telefono_id)
+    REFERENCES tipo_de_telefono (id_tipo_de_telefono);
+
+
+CREATE TABLE afiliado_X_carga (
+    afiliado_id         NUMBER NOT NULL,
+    carga_id            NUMBER NOT NULL
+    );
+ALTER TABLE afiliado_X_carga ADD CONSTRAINT afiliado_X_carga_PK PRIMARY KEY (afiliado_id,carga_id);
+ALTER TABLE afiliado_X_carga ADD CONSTRAINT afiliado_afi_carga_FK FOREIGN KEY (afiliado_id)
+    REFERENCES afiliados (id_afiliado);
+
+CREATE TABLE cargas (
+    id_rut              NUMBER NOT NULL,
+    dv                  VARCHAR(1) NOT NULL,
+    pri_nombre          VARCHAR(255) NOT NULL,
+    seg_nombre          VARCHAR(255),
+    ape_paterno         VARCHAR(255) NOT NULL,
+    ape_materno         VARCHAR(255),
+    tipo_parentesco     CHAR(1) NOT NULL,
+    tipo_pareja         VARCHAR(255)
+    );
+ALTER TABLE cargas ADD CONSTRAINT rut_PK PRIMARY KEY (id_rut);
+ALTER TABLE afiliado_X_carga ADD CONSTRAINT carga_FK FOREIGN KEY (carga_id)
+    REFERENCES cargas(id_rut);
+
+CREATE TABLE tipos_de_genero (
+    id_genero           NUMBER NOT NULL,
+    nombre              VARCHAR(255) NOT NULL
+);
+ALTER TABLE tipos_de_genero ADD CONSTRAINT id_genero_PK PRIMARY KEY (id_genero);
+ALTER TABLE afiliados ADD CONSTRAINT afiliado_tipos_de_genero_FK FOREIGN KEY (genero_id)
+    REFERENCES tipos_de_genero (id_genero);
+
+CREATE TABLE estado_de_usuarios (
+    Fecha                                       DATE NOT NULL,
+    afiliado_id_afiliado                        NUMBER NOT NULL,
+    tipo_de_estado_del_usuario_Id_estado        NUMBER NOT NULL
+);
+ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_PK PRIMARY KEY (Fecha,afiliado_id_afiliado);
+ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_afiliado_PK FOREIGN key (afiliado_id_afiliado)
+    REFERENCES afiliados (id_afiliado);
+
+CREATE TABLE tipo_de_estado_del_usuario (
+    Id_estado           NUMBER NOT NULL,
+    nombre              VARCHAR (255) NOT NULL
+);
+ALTER TABLE tipo_de_estado_del_usuario ADD CONSTRAINT Id_estado_PK PRIMARY KEY (Id_estado);
+ALTER TABLE estado_de_usuarios ADD CONSTRAINT tipo_de_estado_del_usuario_FK FOREIGN KEY (tipo_de_estado_del_usuario_Id_estado)
+    REFERENCES tipo_de_estado_del_usuario(Id_estado);
+
+INSERT INTO nacionalidades VALUES (1,'Chile');
+INSERT INTO nacionalidades VALUES (2,'Argentina');
+INSERT INTO nacionalidades VALUES (3,'Peru');
+INSERT INTO nacionalidades VALUES (4,'Bolivia');
+INSERT INTO nacionalidades VALUES (5,'España');
+INSERT INTO nacionalidades VALUES (6,'Uruguay');
+INSERT INTO nacionalidades VALUES (7,'Paraguay');
+INSERT INTO nacionalidades VALUES (8,'Antártida');
+INSERT INTO nacionalidades VALUES (9,'Antigua y Barbuda');
+INSERT INTO nacionalidades VALUES (10,'Antillas Holandesas');
+INSERT INTO nacionalidades VALUES (11,'Arabia Saudí');
+INSERT INTO nacionalidades VALUES (12,'Argelia');
+INSERT INTO nacionalidades VALUES (13,'Filipinas');
+INSERT INTO nacionalidades VALUES (14,'Armenia');
+INSERT INTO nacionalidades VALUES (15,'Aruba');
+INSERT INTO nacionalidades VALUES (16,'Australia');
+INSERT INTO nacionalidades VALUES (17,'Austria');
+INSERT INTO nacionalidades VALUES (18,'Azerbaiyán');
+INSERT INTO nacionalidades VALUES (19,'Bahamas');
+INSERT INTO nacionalidades VALUES (20,'Bahréin');
+INSERT INTO nacionalidades VALUES (21,'Bangladesh');
+INSERT INTO nacionalidades VALUES (22,'Barbados');
+INSERT INTO nacionalidades VALUES (23,'Bielorrusia');
+INSERT INTO nacionalidades VALUES (24,'Bélgica');
+INSERT INTO nacionalidades VALUES (25,'Belice');
+INSERT INTO nacionalidades VALUES (26,'Benin');
+INSERT INTO nacionalidades VALUES (27,'Bermudas');
+INSERT INTO nacionalidades VALUES (28,'Bhután');
+INSERT INTO nacionalidades VALUES (30,'Bosnia y Herzegovina');
+
+INSERT INTO regiones VALUES (1,'Arica y Parinacota');
+INSERT INTO regiones VALUES (2,'Tarapaca');
+INSERT INTO regiones VALUES (3,'Antofagasta');
+INSERT INTO regiones VALUES (4,'Atacama');
+INSERT INTO regiones VALUES (15,'Coquimbo');
+INSERT INTO regiones VALUES (5,'Valparaiso');
+INSERT INTO regiones VALUES (6,'Metropolitana');
+INSERT INTO regiones VALUES (7,'OHiggins');
+INSERT INTO regiones VALUES (8,'Maule');
+INSERT INTO regiones VALUES (9,'Biobio');
+INSERT INTO regiones VALUES (10,'Araucania');
+INSERT INTO regiones VALUES (11,'Los Rios');
+INSERT INTO regiones VALUES (12,'Los Lagos');
+INSERT INTO regiones VALUES (13,'Aysen');
+INSERT INTO regiones VALUES (14,'Magallanes');
+
+INSERT INTO provincias VALUES (1,'Tarapaca',1);
+INSERT INTO provincias VALUES (2,'Antofagasta',3);
+INSERT INTO provincias VALUES (3,'Atacama',4);
+INSERT INTO provincias VALUES (4,'Coquimbo',15);
+INSERT INTO provincias VALUES (5,'Valparaiso',5);
+INSERT INTO provincias VALUES (6,'Santiago',6);
+INSERT INTO provincias VALUES (7,'Colchagua',7);
+INSERT INTO provincias VALUES (8,'Talca',8);
+INSERT INTO provincias VALUES (9,'Concepcion',9);
+INSERT INTO provincias VALUES (10,'Valdivia',11);
+INSERT INTO provincias VALUES (11,'Osorno',12);
+INSERT INTO provincias VALUES (12,'Aysen',13);
+
+INSERT INTO comunas VALUES (1,'Puente alto',6);
+INSERT INTO comunas VALUES (2,'Quinta normal',6);
+INSERT INTO comunas VALUES (3,'La florida',6);
+INSERT INTO comunas VALUES(4,'Tejas verdes',5);
+INSERT INTO comunas VALUES (5,'Caldera',3);
+
+INSERT INTO tipos_de_genero VALUES (1,'Maculino');
+INSERT INTO tipos_de_genero VALUES (2,'Femenino');
+INSERT INTO tipos_de_genero VALUES (3,'Otro');
+
+INSERT INTO afiliados VALUES (1,20811954,'0','','Willians','','briones','','19/07/01',200000,'Pino 2757','12365468435138151326813535','wbriones2013@gmail.com',1,1,1
+);
+INSERT INTO afiliados VALUES (2,20666589,'6','','Franco','Antonio','Vergara','Gutierrez','01/09/01',1200000,'castaño 002','3151321351213','Franco.@gmail.com',3,1,1
+);
+INSERT INTO afiliados VALUES (3,23439815,'6','','Luis','','Samper','','09/03/05',300000,'Eucalipto 230','3151321351213','Luis.s@gmail.com',2,1,3
+);
+INSERT INTO afiliados VALUES (4,22150875,'7','','Maria','Gloria','Rodriguez','','18/07/03',500000,'Olivo 1980','3151321351213','Glorias@gmail.com',4,1,2
+);
+INSERT INTO afiliados VALUES (5,'','','D513CVZ152C5','José ','Luis','Quispe','Sánchez','28/08/80',200000,'aliso 4348','3151321351213','Faraon@gmail.com',5,3,3
+);
+
+INSERT INTO discapacidades VALUES (1,'SENSORIALES Y DE LA COMUNICACIÓN');
+INSERT INTO discapacidades VALUES (2,'MOTRICES');
+INSERT INTO discapacidades VALUES (3,'MENTALES');
+
+INSERT INTO afiliado_x_discapacidad VALUES (5,2);
+INSERT INTO afiliado_x_discapacidad VALUES (5,3);
+INSERT INTO afiliado_x_discapacidad VALUES (4,1);
+INSERT INTO afiliado_x_discapacidad VALUES (3,3);
+INSERT INTO afiliado_x_discapacidad VALUES (3,2);
+
+
+SELECT * 
+fROM nacionalidades;
+
+SELECT
+co.id_comuna AS "numero de comuna",
+co.nombre AS "comunas",
+pro.nombre AS "provincia"
+FROM comunas co 
+JOIN provincias pro ON (pro.id_provincia=co.provincia_id)
+ORDER BY co.nombre;
+
+SELECT 
+    pr.id_provincia AS "numero",
+    pr.nombre       AS "provincia",
+    re.nombre       AS "Region"
+FROM provincias pr
+    JOIN regiones re ON (re.id_region=pr.region_id)
+    ORDER BY pr.id_provincia DESC;
+
+SELECT
+afi.id_afiliado             AS "Numero de afiliado",
+afi.rut                     AS "RUT",
+afi.DV                      AS "Digito verificador",
+afi.num_pasapote            AS "Numero de Pasaporte",
+afi.pri_nombre              AS "Primer nombre",
+afi.seg_nombre              AS "Segundo nombre",
+afi.ape_paterno             AS "Primer apellido",
+afi.ape_materno             AS "Segundo Apellido",
+afi.fecha_nacimiento        AS "Feha nacimiento",
+afi.pretencion_sueldo       AS "Pretencion de sueldo",
+afi.direccion               AS "Direccion",
+afi.curriculum              AS "Curriculum",
+afi.correo_electronico      AS "Correo electronico",
+ge.nombre                   AS "Genero",
+co.nombre                   AS "Comuna",
+na.nombre                   AS "pais"
+FROM afiliados afi
+JOIN tipos_de_genero ge ON (ge.id_genero=afi.genero_id)
+JOIN comunas co ON (co.id_comuna=afi.comuna_id)
+JOIN nacionalidades na ON (na.id_nacionalidades=afi.nacionalidad_id)
+ORDER BY afi.id_afiliado;
+
+SELECT
+afdi.afiliado_id        AS "Numero de afiliado",
+afi.pri_nombre          AS "Afiliado",
+afdi.discapacidades_id  AS "Numero de discapacidad",
+dis.nombre              AS "Discapacidad"
+FROM afiliado_x_discapacidad afdi
+JOIN afiliados afi ON (afi.id_afiliado=afdi.afiliado_id)
+JOIN discapacidades dis ON (dis.id_discapacidades=afdi.discapacidades_id);
+
+
+SELECT
+afi.id_afiliado             AS "Numero de afiliado",
+afi.rut                     AS "RUT",
+afi.DV                      AS "Digito verificador",
+afi.num_pasapote            AS "Numero de Pasaporte",
+afi.pri_nombre || ' ' || afi.seg_nombre || ' ' || afi.ape_paterno || ' ' || afi.ape_materno AS "Nombre completo",
+afi.fecha_nacimiento        AS "Feha nacimiento",
+to_char(afi.pretencion_sueldo,'999g999g999')       AS "Pretencion de sueldo",
+afi.direccion               AS "Direccion",
+afi.curriculum              AS "Curriculum",
+afi.correo_electronico      AS "Correo electronico",
+ge.nombre                   AS "Genero",
+co.nombre                   AS "Comuna",
+na.nombre                   AS "pais"
+FROM afiliados afi
+JOIN tipos_de_genero ge ON (ge.id_genero=afi.genero_id)
+JOIN comunas co ON (co.id_comuna=afi.comuna_id)
+JOIN nacionalidades na ON (na.id_nacionalidades=afi.nacionalidad_id)
+ORDER BY afi.id_afiliado;

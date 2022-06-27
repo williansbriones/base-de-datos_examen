@@ -1,3 +1,6 @@
+-----------------------------------------------------select paises
+SELECT * 
+fROM nacionalidades;
 -----------------------------------------------------select piola
 SELECT
 co.id_comuna AS "numero de comuna",
