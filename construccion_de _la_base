@@ -99,14 +99,13 @@ ALTER TABLE afiliados ADD CONSTRAINT afiliado_nacionalidad_FK FOREIGN KEY (nacio
     REFERENCES nacionalidades (id_nacionalidades);
 --------------------------------------------------------------------tablas de vehiculos
 CREATE TABLE vehiculos_x_afiliados (
-    afiliado_id         NUMBER NOT NULL,
+    vigente_hasta       DATE NOT NULL,
     vehiculo_id         NUMBER NOT NULL,
     prima               NUMBER NOT NULL,
     descuento           NUMBER NOT NULL,
-    vigente_hasta       DATE NOT NULL,
-    vigente             CHAR(1)NOT NULL
+    afiliado_id         NUMBER NOT NULL
     );
-ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT vehiculos_x_afiliados_PK PRIMARY KEY (afiliado_id,vehiculo_id);
+ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT vehiculos_x_afiliados_PK PRIMARY KEY (vigente_hasta,vehiculo_id);
 ALTER TABLE vehiculos_x_afiliados ADD CONSTRAINT afiliado_vehiculo_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados(id_afiliado);
 
