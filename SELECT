@@ -47,3 +47,26 @@ dis.nombre              AS "Discapacidad"
 FROM afiliado_x_discapacidad afdi
 JOIN afiliados afi ON (afi.id_afiliado=afdi.afiliado_id)
 JOIN discapacidades dis ON (dis.id_discapacidades=afdi.discapacidades_id);
+--------------------------------------------------------------
+
+SELECT
+afi.id_afiliado             AS "Numero de afiliado",
+afi.rut                     AS "RUT",
+afi.DV                      AS "Digito verificador",
+afi.num_pasapote            AS "Numero de Pasaporte",
+afi.pri_nombre || ' ' || afi.seg_nombre || ' ' || afi.ape_paterno || ' ' || afi.ape_materno AS "Nombre completo",
+afi.fecha_nacimiento        AS "Feha nacimiento",
+afi.pretencion_sueldo       AS "Pretencion de sueldo",
+afi.direccion               AS "Direccion",
+afi.curriculum              AS "Curriculum",
+afi.habilitado              AS "Estado de la cuenta",
+afi.correo_electronico      AS "Correo electronico",
+ge.nombre                   AS "Genero",
+co.nombre                   AS "Comuna",
+na.nombre                   AS "pais"
+FROM afiliados afi
+JOIN tipos_de_genero ge ON (ge.id_genero=afi.genero_id)
+JOIN comunas co ON (co.id_comuna=afi.comuna_id)
+JOIN nacionalidades na ON (na.id_nacionalidades=afi.nacionalidad_id)
+ORDER BY afi.id_afiliado;
+
