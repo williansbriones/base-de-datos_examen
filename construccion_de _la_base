@@ -244,10 +244,10 @@ ALTER TABLE afiliados ADD CONSTRAINT afiliado_tipos_de_genero_FK FOREIGN KEY (ge
 ---------------------------------------------------------------------estado de usuario
 CREATE TABLE estado_de_usuarios (
     Fecha                                       DATE NOT NULL,
-    tipo_de_estado_del_usuario_Id_estado        NUMBER NOT NULL,
-    afiliado_id_afiliado                        NUMBER NOT NULL
+    afiliado_id_afiliado                        NUMBER NOT NULL,
+    tipo_de_estado_del_usuario_Id_estado        NUMBER NOT NULL
 );
-ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_PK PRIMARY KEY (Fecha,tipo_de_estado_del_usuario_Id_estado);
+ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_PK PRIMARY KEY (Fecha,afiliado_id_afiliado);
 ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_afiliado_PK FOREIGN key (afiliado_id_afiliado)
     REFERENCES afiliados (id_afiliado);
 
