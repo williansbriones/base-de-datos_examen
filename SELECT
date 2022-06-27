@@ -47,4 +47,3 @@ dis.nombre              AS "Discapacidad"
 FROM afiliado_x_discapacidad afdi
 JOIN afiliados afi ON (afi.id_afiliado=afdi.afiliado_id)
 JOIN discapacidades dis ON (dis.id_discapacidades=afdi.discapacidades_id);
-afiliado_x_discapacidad;
