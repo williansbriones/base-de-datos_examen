@@ -37,7 +37,6 @@ CREATE TABLE afiliados(
     pretencion_sueldo   NUMBER NOT NULL,
     direccion           VARCHAR(255) NOT NULL,
     curriculum          BLOB NOT NULL,
-    habilitado          CHAR(1) NOT NULL,
     correo_electronico  VARCHAR(255) NOT NULL,
     comuna_id           NUMBER NOT NULL,
     nacionalidad_id     NUMBER NOT NULL,
