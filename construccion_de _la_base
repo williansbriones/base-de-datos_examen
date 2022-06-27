@@ -196,11 +196,11 @@ ALTER TABLE beneficios_por_afiliados ADD CONSTRAINT beneficio_FK FOREIGN KEY (be
     REFERENCES beneficios (id_beneficios);
 -------------------------------------------------------------TABLAS TELEFONO
 CREATE TABLE telefono_por_afiliado (
+    numero                  NUMBER NOT NULL,
     afiliado_id             NUMBER NOT NULL,
-    tipo_telefono_id        NUMBER NOT NULL,
-    numero                  NUMBER NOT NULL
+    tipo_telefono_id        NUMBER NOT NULL
     );
-ALTER TABLE telefono_por_afiliado ADD CONSTRAINT telefono_por_afiliado_PK PRIMARY KEY (afiliado_id,tipo_telefono_id);
+ALTER TABLE telefono_por_afiliado ADD CONSTRAINT telefono_por_afiliado_PK PRIMARY KEY (numero);
 ALTER TABLE telefono_por_afiliado ADD CONSTRAINT afiliado_telefono_afi_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados(id_afiliado);
 
