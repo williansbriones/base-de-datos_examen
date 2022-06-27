@@ -64,14 +64,14 @@ ALTER TABLE afiliado_x_discapacidad ADD CONSTRAINT afiliado_x_discapacidad_disca
 -------------------------------------------------------------------tablas de mensualidades
 CREATE TABLE mensualidades (
     id_mensualidad          NUMBER NOT NULL,
-    afiliado_id             NUMBER NOT NULL,
     monto                   NUMBER NOT NULL,
     fecha                   DATE  NOT NULL,
     numero_de_cheque        NUMBER,
     tipo_de_pago_id         NUMBER NOT NULL,
+    afiliado_id             NUMBER NOT NULL,
     banco_id                NUMBER NOT NULL
     );
-ALTER TABLE mensualidades ADD CONSTRAINT mensualidades_PK PRIMARY KEY (id_mensualidad,afiliado_id);
+ALTER TABLE mensualidades ADD CONSTRAINT mensualidades_PK PRIMARY KEY (id_mensualidad);
 ALTER TABLE mensualidades ADD CONSTRAINT afiliado_mensualidades_FK FOREIGN KEY (afiliado_id)
     REFERENCES afiliados (id_afiliado);
 
