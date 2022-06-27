@@ -250,3 +250,11 @@ CREATE TABLE estado_de_usuarios (
 ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_PK PRIMARY KEY (Fecha,tipo_de_estado_del_usuario_Id_estado);
 ALTER TABLE estado_de_usuarios ADD CONSTRAINT estado_de_usuarios_afiliado_PK FOREIGN key (afiliado_id_afiliado)
     REFERENCES afiliados (id_afiliado);
+
+CREATE TABLE tipo_de_estado_del_usuario (
+    Id_estado           NUMBER NOT NULL,
+    nombre              VARCHAR (255) NOT NULL
+);
+ALTER TABLE tipo_de_estado_del_usuario ADD CONSTRAINT Id_estado_PK PRIMARY KEY (Id_estado);
+ALTER TABLE estado_de_usuarios ADD CONSTRAINT tipo_de_estado_del_usuario_FK FOREIGN KEY (tipo_de_estado_del_usuario_Id_estado)
+    REFERENCES tipo_de_estado_del_usuario(Id_estado);
