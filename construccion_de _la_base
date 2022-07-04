@@ -65,10 +65,9 @@ ALTER TABLE afiliado_x_discapacidad ADD CONSTRAINT afiliado_x_discapacidad_disca
 CREATE TABLE pagos (
     id_mensualidad          NUMBER NOT NULL,
     fecha                   DATE  NOT NULL,
-    numero_de_cheque        NUMBER,
     tipo_de_pago_id         NUMBER NOT NULL,
     afiliado_id             NUMBER NOT NULL,
-    banco_id                NUMBER NOT NULL,
+    banco_id                NUMBER,
     forma_de_pago_id        NUMBER NOT NULL,
     cheque_id               NUMBER
     );
