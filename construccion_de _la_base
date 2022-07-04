@@ -64,7 +64,6 @@ ALTER TABLE afiliado_x_discapacidad ADD CONSTRAINT afiliado_x_discapacidad_disca
 -------------------------------------------------------------------tablas de mensualidades
 CREATE TABLE pagos (
     id_mensualidad          NUMBER NOT NULL,
-    monto                   NUMBER NOT NULL,
     fecha                   DATE  NOT NULL,
     numero_de_cheque        NUMBER,
     tipo_de_pago_id         NUMBER NOT NULL,
@@ -87,6 +86,7 @@ ALTER TABLE pagos ADD CONSTRAINT forma_de_pago_pagos_PK FOREIGN KEY (forma_de_pa
 
 CREATE TABLE tipo_de_pago (
     id_tipo_de_pago         NUMBER NOT NULL,
+    monto                   NUMBER NOT NULL,
     nombre                  VARCHAR(255) NOT NULL
     );
 ALTER TABLE tipo_de_pago ADD CONSTRAINT tipo_de_pago_PK PRIMARY KEY (id_tipo_de_pago);
