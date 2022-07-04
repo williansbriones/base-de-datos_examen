@@ -81,7 +81,7 @@ CREATE TABLE forma_de_pago (
     id_forma_de_pago       NUMBER NOT NULL,
     nombre                 VARCHAR2(250) NOT NULL
 );
-ALTER TABLE forma_de_pago ADD CONSTRAINT forma_de_pago_PK PRIMARY KEY ( tipo_de_pago_id );
+ALTER TABLE forma_de_pago ADD CONSTRAINT forma_de_pago_PK PRIMARY KEY (id_forma_de_pago);
 ALTER TABLE pagos ADD CONSTRAINT forma_de_pago_pagos_PK FOREIGN KEY (forma_de_pago_id)
     REFERENCES forma_de_pago (id_forma_de_pago);
 
@@ -98,7 +98,7 @@ CREATE TABLE banco (
     nombre                  VARCHAR(255) NOT NULL
     );
 ALTER TABLE banco ADD CONSTRAINT banco_PK PRIMARY KEY (id_banco);
-ALTER TABLE mensualidades ADD CONSTRAINT banco_FK FOREIGN KEY (banco_id)
+ALTER TABLE pagos ADD CONSTRAINT banco_FK FOREIGN KEY (banco_id)
     REFERENCES banco (id_banco);
 
 CREATE TABLE cheque (
